@@ -21,7 +21,7 @@ splint install francis94c/vue-ci
 Basically, When building Single Page Applications (SPAs), You tend to load certain JavaScript files on the client side. with this library, you can group scripts to load under a URL.
 
 #### Step 1 ####
-Create a config file `axe.php` under `applications/config/axe.php`. This config file will have content similar to the following. Which we'll explain below.
+Create a config file `vue.php` under `applications/config/vue.php`. This config file will have content similar to the following. Which we'll explain below.
 ```php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
