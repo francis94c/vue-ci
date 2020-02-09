@@ -35,8 +35,9 @@ class VueLoader
    */
   public function loadGroup(string $groupName):void
   {
-    foreach ($this->groups[$groupName]['components'] ?? [] as $group) {
-      $this->loadComponent($group);
+    $prefix = $this->groups[$groupName]['components_view_prefix'] ?? '';
+    foreach ($this->groups[$groupName]['components'] ?? [] as $component) {
+      $this->loadComponent($prefix.$component);
     }
     foreach ($this->groups[$groupName]['scripts'] ?? [] as $script) {
       $this->loadScript($script);
