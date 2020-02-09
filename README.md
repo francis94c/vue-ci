@@ -1,3 +1,5 @@
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/francis94c/vue-ci/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/francis94c/vue-ci/?branch=master) [![Maintainability](https://api.codeclimate.com/v1/badges/4a22678ec8ceee6cad6e/maintainability)](https://codeclimate.com/github/francis94c/vue-ci/maintainability)
+
 # vue-ci
 
 <p style="text-align:center;">
