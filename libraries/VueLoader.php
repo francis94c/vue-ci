@@ -56,7 +56,7 @@ class VueLoader
   public function loadScript(string $viewPath):void
   {
     $script = get_instance()->load->view($viewPath, null, true);
-    $script = preg_replace('/\/\/.+/', '', $script);
+    $script = preg_replace('/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/m', '$1', $script);
     echo preg_replace('/(<script>|<script type="text\/javascript">|<\/script>|\r|\n|  )/', '', $script);
   }
 
@@ -78,21 +78,19 @@ class VueLoader
   {
     $component = get_instance()->load->view($viewPath, null, true);
 
-    preg_match_all('/<template>(.|\r\n\r|\n)+<\/template>/im', $component, $matches);
+    preg_match_all('/<template>.+<\/template>/s', $component, $matches);
     $template = $this->prepare_template($matches[0][0]);
 
-    preg_match_all('/<script>(.|\r\n\r|\n)+<\/script>/im', $component, $matches);
+    preg_match_all('/<script>.+<\/script>/s', $component, $matches);
     $script = $matches[0][0];
 
     $script = preg_replace('/template:(.)+,/', '', $script);
-
-    $matches = [];
 
     if (preg_match('/{/', $script, $matches, PREG_OFFSET_CAPTURE)) {
       $script = substr_replace($script, "template: '$template', ", $matches[0][1] + 1, 0);
     }
 
-    $script = preg_replace('/\/\/.+/', '', $script);
+    $script = preg_replace('/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/m', '$1', $script);
 
     $script = preg_replace('/(<script>|<script type="text\/javascript">|<\/script>|\r|\n|  )/', '', $script);
 
@@ -111,7 +109,7 @@ class VueLoader
    * @date   2020-02-09
    *
    * @param  string $template String (HTML) enclosed in <template> tags.
-   * @return string           Processed/Prepared template string.              
+   * @return string           Processed/Prepared template string.
    */
   private function prepare_template(string $template):string
   {
